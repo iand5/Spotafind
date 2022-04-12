@@ -55,7 +55,6 @@ public class SpotifeezioRequest {
         return token;
     }
 
-
     public String getName()
     {
         return name;
@@ -80,12 +79,6 @@ public class SpotifeezioRequest {
         try
         {
             artists = artistsReq.execute();
-
-            System.out.println("Length: " + artists.length);
-            for(Artist a : artists)
-            {
-                System.out.println(a.getName());
-            }
         }
         catch (IOException | SpotifyWebApiException | ParseException e)
         {
@@ -100,7 +93,7 @@ public class SpotifeezioRequest {
         try {
             Paging<Artist> artistPaging = searchArtistsRequest.execute();
             Artist[] a = artistPaging.getItems();
-            System.out.println("ID for" + name + ": " + a[0].getId());
+            System.out.println("ID for " + name + ": " + a[0].getId());
             System.out.println("Number of pages of response: " + artistPaging.getTotal());
             //Here we switch from using the name for the name of the artist to using it for the artist ID string
             name = a[0].getId();
@@ -108,5 +101,4 @@ public class SpotifeezioRequest {
             System.out.println("Error: " + var1.getMessage());
         }
     }
-
 }

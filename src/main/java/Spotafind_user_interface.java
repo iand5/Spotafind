@@ -1,3 +1,5 @@
+import se.michaelthelin.spotify.model_objects.specification.Artist;
+
 import java.util.*;
 
 public class Spotafind_user_interface {
@@ -24,55 +26,23 @@ public class Spotafind_user_interface {
         return response;
     }
 
-    public String[] give_me_da_song()
+    public int how_many_reqs()
     {
         boolean validInput = false;
-        String response = null;
-        String[] songs_list = null;
+        int response = -1;
         while (!validInput)
         {
-            System.out.println("Give me the song's name, or Q");
-            response = input.nextLine().toLowerCase();
-            if (response.equals("q"))
-            {
-                break;
-            }
-            songs_list = Spotafind_song_request.song_request(response);
-            if(songs_list.equals(null))
-            {
-                System.out.println("null response, Spotify does not know this song");
-            }
-            else
+            System.out.println("How many artist recomendations do you want? (type 1-20)");
+            response = Integer.parseInt(input.nextLine());
+            if(response>0&&response<21)
             {
                 validInput = true;
             }
-        }
-        return songs_list;
-    }
-
-    public String[] give_me_da_artist()
-    {
-        boolean validInput = false;
-        String response = null;
-        String[] artist_list = null;
-        while (!validInput)
-        {
-            System.out.println("Give me the artist's name, or Q");
-            response = input.nextLine().toLowerCase();
-            if (response.equals("q"))
-            {
-                break;
-            }
-            artist_list = Spotafind_artist_request.artist_request(response);
-            if(artist_list.equals(null))
-            {
-                System.out.println("null response, Spotify does not know this artist");
-            }
             else
             {
-                validInput = true;
+                System.out.println("Read the directions");
             }
         }
-        return artist_list;
+        return response;
     }
 }

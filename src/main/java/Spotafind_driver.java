@@ -1,27 +1,29 @@
-public class Spotafind_driver {
-    public static void main(String[] args) {
-        Spotafind_user_interface ui = new Spotafind_user_interface();
+import se.michaelthelin.spotify.model_objects.specification.Artist;
 
+import javax.swing.plaf.synth.SynthLookAndFeel;
+import java.util.Scanner;
+public class Spotafind_driver
+{
+    public static void main(String[] args)
+    {
+        Spotafind_user_interface ui = new Spotafind_user_interface();
         boolean inloop_1 = true;
-        while(inloop_1)
+        while (inloop_1)
         {
             String mainResponse = ui.main_menu_prompt();
             if (mainResponse.equals("1"))
             {
                 System.out.println("Songs chosen");
-                if (song_req_path(ui))
-                {
-                    System.out.println("Bye");
-                    inloop_1 = false;
-                }
+                //copy what is bellow but for songs
             }
             else if (mainResponse.equals("2"))
             {
                 System.out.println("Artists chosen");
-                if (artist_req_path(ui))
+                Artist[] artist_list = Spotafind_artist_process.artist_request();
+                int a = ui.how_many_reqs();
+                for (int p = 0; p < a; p++)
                 {
-                    System.out.println("Bye");
-                    inloop_1 = false;
+                    System.out.println(artist_list[p].getName());
                 }
             }
             else
@@ -30,40 +32,5 @@ public class Spotafind_driver {
                 inloop_1 = false;
             }
         }
-    }
-
-    private static boolean song_req_path(Spotafind_user_interface ui)
-    {
-        boolean yes_quit = false;
-        String[] song_response = ui.give_me_da_song();
-        if (song_response==null)
-        {
-            yes_quit = true;
-        }
-        else
-        {
-            for(String song: song_response)
-            {
-                System.out.println(song);
-            }
-        }
-        return yes_quit;
-    }
-    private static boolean artist_req_path(Spotafind_user_interface ui)
-    {
-        boolean yes_quit = false;
-        String[] artist_response = ui.give_me_da_artist();
-        if (artist_response==null)
-        {
-            yes_quit = true;
-        }
-        else
-        {
-            for(String artist: artist_response)
-            {
-                System.out.println(artist);
-            }
-        }
-        return yes_quit;
     }
 }
