@@ -70,11 +70,11 @@ public class SpotifeezioRequest {
         this.name = name;
     }
 
-    public Artist[] getRelated()
+    public Artist[] ArtistGetRelated(Artist b)
     {
         Artist[] artists = null;
         GetArtistsRelatedArtistsRequest artistsReq = spotifyApi
-                .getArtistsRelatedArtists(name)
+                .getArtistsRelatedArtists(b.getId())
                 .build();
         try
         {
@@ -87,18 +87,32 @@ public class SpotifeezioRequest {
         return artists;
     }
 
-    public void getArtistId()
+    public boolean getArtistdata()
     {
         searchArtistsRequest = spotifyApi.searchArtists(name).build();
         try {
             Paging<Artist> artistPaging = searchArtistsRequest.execute();
             Artist[] a = artistPaging.getItems();
+            if (a.length==0)
+            {return false;}
             System.out.println("ID for " + name + ": " + a[0].getId());
             System.out.println("Number of pages of response: " + artistPaging.getTotal());
-            //Here we switch from using the name for the name of the artist to using it for the artist ID string
-            name = a[0].getId();
         } catch (SpotifyWebApiException | ParseException | IOException var1) {
             System.out.println("Error: " + var1.getMessage());
         }
+        return true;
+    }
+
+    public Artist[] getArtistGuessList()
+    {
+        searchArtistsRequest = spotifyApi.searchArtists(name).build();
+        try {
+            Paging<Artist> artistPaging = searchArtistsRequest.execute();
+            Artist[] a = artistPaging.getItems();
+            {return a;}
+        } catch (SpotifyWebApiException | ParseException | IOException var1) {
+            System.out.println("Error: " + var1.getMessage());
+        }
+        return null;
     }
 }
